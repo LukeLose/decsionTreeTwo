@@ -49,6 +49,10 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
     private static final String SONG_TRAINING = SONG_BASE + "training.csv";
     private static final String SONG_TESTING = SONG_BASE + "testing.csv";
 
+    //
+    private static final String FOOD_TYPE= "foodType";
+    private static final String FRUITS_AND_VEGETABLES = DATA_BASE + "fruits-and-vegetables.csv";
+
     private Class<G> generatorClass;
     private Class<D> datasetClass;
     private ITreeGenerator<D> generator;
@@ -190,24 +194,24 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
      * @param args
      */
 //    TODO: Uncomment this when you are ready to test your implementation!
-//    public static void main(String[] args) {
-//        DecisionTreeTester<TreeGenerator, Dataset> tester;
-//        try {
-//            tester = new DecisionTreeTester<>(TreeGenerator.class, Dataset.class);
-//            Dataset trainingData = makeDataset(SONG_TRAINING, Dataset.class);
-//            double accuracy =
-//                    tester.getDecisionTreeAccuracy(trainingData, trainingData, IS_POPULAR);
-//            System.out.println("Accuracy on training data: " + accuracy);
-//
-//            int numIters = 100;
-//            Dataset testingData = makeDataset(SONG_TESTING, Dataset.class);
-//            accuracy = tester.getAverageDecisionTreeAccuracy(trainingData, testingData, IS_POPULAR, numIters);
-//            System.out.println("Accuracy on testing data: " + accuracy);
-//
-//        } catch (InstantiationException | InvocationTargetException
-//                 | NoSuchMethodException | IllegalAccessException e) {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        }
-//    }
+    public static void main(String[] args) {
+        DecisionTreeTester<TreeGenerator, Dataset> tester;
+        try {
+            tester = new DecisionTreeTester<>(TreeGenerator.class, Dataset.class);
+            Dataset trainingData = makeDataset(FRUITS_AND_VEGETABLES, Dataset.class);
+            double accuracy =
+                    tester.getDecisionTreeAccuracy(trainingData, trainingData, FOOD_TYPE);
+            System.out.println("Accuracy on training data: " + accuracy);
+
+            int numIters = 100;
+            Dataset testingData = makeDataset(FRUITS_AND_VEGETABLES, Dataset.class);
+            accuracy = tester.getAverageDecisionTreeAccuracy(trainingData, testingData, FOOD_TYPE, numIters);
+            System.out.println("Accuracy on testing data: " + accuracy);
+
+        } catch (InstantiationException | InvocationTargetException
+                 | NoSuchMethodException | IllegalAccessException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
