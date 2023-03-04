@@ -24,9 +24,11 @@ public class Dataset implements IDataset {
     private List<String> attributeList;
     private List<Row> dataObjects;
     private AttributeSelection selectionType;
+    private List<String> attributeCopy;
     public Dataset(List<String> attributeList, List<Row> dataObjects, AttributeSelection attributeSelection) {
         // TODO: implement the constructor! (Hint: take a look at `getAttributeToSplitOn`)
         this.attributeList = new ArrayList<>(attributeList);
+        this.attributeCopy = new ArrayList<>(attributeList);
         this.dataObjects = new ArrayList<>(dataObjects);
         this.selectionType = attributeSelection;
     }
@@ -34,6 +36,10 @@ public class Dataset implements IDataset {
     @Override
     public List<String> getAttributeList() {
         return this.attributeList;
+    }
+
+    public List<String> getAttributeCopy() {
+        return this.attributeCopy;
     }
 
     @Override
@@ -58,18 +64,18 @@ public class Dataset implements IDataset {
 //                String returnString = this.attributeList.stream().sorted().toList().get(0);
 //                this.attributeList/**.stream().sorted().toList() MIGHT BE BROKEN CHECK LATER*/.remove(0);
 //                return returnString;//this.attributeList.stream().sorted().toList().get(0);
-                return this.attributeList.stream().sorted().toList().get(0);
+                return this.attributeCopy.stream().sorted().toList().get(0);
             }
             case DESCENDING_ALPHABETICAL -> {
                 //String returnString = this.attributeList.stream().sorted().toList().get(this.attributeList.size() - 1);
                 //this.attributeList.remove(this.attributeList.size() - 1);
-                return this.attributeList.stream().sorted().toList().get(this.attributeList.size() - 1);
+                return this.attributeCopy.stream().sorted().toList().get(this.attributeCopy.size() - 1);
             }
             case RANDOM -> {
-                int num = ((int) (Math.random() * (this.attributeList.size()) /**-1 OR NO -1*/));
+                int num = ((int) (Math.random() * (this.attributeCopy.size()) /**-1 OR NO -1*/));
                 //String returnString = this.attributeList.stream().sorted().toList().get(num);
                 //this.attributeList.remove(num);
-                return this.attributeList.stream().sorted().toList().get(num);
+                return this.attributeCopy.stream().sorted().toList().get(num);
             }
         }
         throw new RuntimeException("Non-Exhaustive Switch Case");
@@ -142,7 +148,7 @@ public class Dataset implements IDataset {
 //                System.out.print(" " + q);
 //            }
 //        System.out.println("");
-        return new Dataset(this.attributeList, splitDataObjects, this.selectionType);
+        return new Dataset(this.attributeCopy, splitDataObjects, this.selectionType);
     }
     public void updateAttributeList(String attributeAtNode){
         List<String> updatedAttributeList = new ArrayList<>();
@@ -156,6 +162,6 @@ public class Dataset implements IDataset {
                 System.out.print(" " + q);
             }
         System.out.println("");
-        this.attributeList = new ArrayList<>(updatedAttributeList);
+        this.attributeCopy = new ArrayList<>(updatedAttributeList);
     }
 }

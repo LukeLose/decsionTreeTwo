@@ -20,6 +20,7 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
 
     @Override
     public void generateTree(Dataset trainingData, String targetAttribute) {
+        trainingData.getAttributeCopy().remove(targetAttribute);
         trainingData.getAttributeList().remove(targetAttribute);
         this.root = this.generateTreeHelper(trainingData, targetAttribute, trainingData.getAttributeToSplitOn());
 
@@ -32,7 +33,7 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
      * @return
      */
     public ITreeNode generateTreeHelper(Dataset trainingData, String targetAttribute, String attributeAtNode) {
-        if (trainingData.leafPossible(targetAttribute)){
+        if (trainingData.leafPossible(targetAttribute) || trainingData.getAttributeCopy().isEmpty()){
             System.out.println("Decision leaf made at " + trainingData.getDataObjects().get(0).getAttributeValue(attributeAtNode));
             System.out.println("");
             return new DecisionLeaf(trainingData.getDataObjects().get(0).getAttributeValue(targetAttribute));
@@ -46,8 +47,8 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
             //List<String> updatedAttributeList = trainingData.updateAttributeList(attributeAtNode);
             trainingData.updateAttributeList(attributeAtNode);
             String nextSplit = attributeAtNode;
-            System.out.println(trainingData.getAttributeList().size());
-            if (!trainingData.getAttributeList().isEmpty()) {
+            //System.out.println(trainingData.getAttributeList().size());
+            if (!trainingData.getAttributeCopy().isEmpty()) {
                 nextSplit = trainingData.getAttributeToSplitOn();
             }
             System.out.println(newRoot.getOutgoingEdges().size() + " value edges");

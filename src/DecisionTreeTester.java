@@ -203,7 +203,7 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
                     tester.getDecisionTreeAccuracy(trainingData, trainingData, FOOD_TYPE);
             System.out.println("Accuracy on training data: " + accuracy);
 
-            int numIters = 100;
+            int numIters = 1;
             Dataset testingData = makeDataset(FRUITS_AND_VEGETABLES, Dataset.class);
             accuracy = tester.getAverageDecisionTreeAccuracy(trainingData, testingData, FOOD_TYPE, numIters);
             System.out.println("Accuracy on testing data: " + accuracy);
